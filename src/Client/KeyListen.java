@@ -155,7 +155,7 @@ public class KeyListen implements KeyListener {
 	private static byte[] msg = { 0 };
 
 	public static void sendUDP(DirectionC dir) throws UnknownHostException, IOException {
-		addr = InetAddress.getByName("localhost");
+		addr = InetAddress.getByName(Client.jtextIP.getText());
 
 		msg = dir.toString().getBytes();
 

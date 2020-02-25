@@ -1,6 +1,9 @@
 package Server;
 
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -10,7 +13,11 @@ import javax.swing.SwingWorker;
 
 public class ServerUDP extends Thread {
 
-	public static void startThread(DatagramSocket s) throws SocketException {
+	private static Robot r;
+
+	public static void startThread(DatagramSocket s) throws SocketException, AWTException {
+
+		r = new Robot();
 
 		SwingWorker sw1 = new SwingWorker() {
 
@@ -38,9 +45,11 @@ public class ServerUDP extends Thread {
 					switch (parts[0]) {
 					case "dirUP":
 						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnUP.getBackground()) {
+							r.keyPress(KeyEvent.VK_UP);
 							Server.btnUP.setBackground(Color.GREEN);
 						} else if (Boolean.parseBoolean(parts[1]) == false) {
 							Server.btnUP.setBackground(null);
+							r.keyRelease(KeyEvent.VK_UP);
 						}
 						break;
 					case "dirDOWN":

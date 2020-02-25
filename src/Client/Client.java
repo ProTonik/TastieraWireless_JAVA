@@ -21,6 +21,7 @@ public class Client {
 	}
 
 	protected static JButton btnUP, btnDOWN, btnLEFT, btnRIGHT;
+	protected static JTextField jtextIP;
 
 	/**
 	 * Launch the application.
@@ -80,5 +81,11 @@ public class Client {
 		btnLEFT = new JButton("LEFT");
 		btnLEFT.setBounds(59, 108, 89, 23);
 		frmClient.getContentPane().add(btnLEFT);
+		
+		jtextIP = new JTextField();
+		jtextIP.setText("192.168.1.10");
+		jtextIP.setBounds(338, 11, 86, 20);
+		frmClient.getContentPane().add(jtextIP);
+		jtextIP.setColumns(10);
 	}
 }
