@@ -48,28 +48,34 @@ public class ServerUDP extends Thread {
 							r.keyPress(KeyEvent.VK_UP);
 							Server.btnUP.setBackground(Color.GREEN);
 						} else if (Boolean.parseBoolean(parts[1]) == false) {
-							Server.btnUP.setBackground(null);
 							r.keyRelease(KeyEvent.VK_UP);
+							Server.btnUP.setBackground(null);
 						}
 						break;
 					case "dirDOWN":
 						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnDOWN.getBackground()) {
+							r.keyPress(KeyEvent.VK_DOWN);
 							Server.btnDOWN.setBackground(Color.GREEN);
 						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							r.keyRelease(KeyEvent.VK_DOWN);
 							Server.btnDOWN.setBackground(null);
 						}
 						break;
 					case "dirLEFT":
 						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnLEFT.getBackground()) {
+							r.keyPress(KeyEvent.VK_LEFT);
 							Server.btnLEFT.setBackground(Color.GREEN);
 						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							r.keyRelease(KeyEvent.VK_LEFT);
 							Server.btnLEFT.setBackground(null);
 						}
 						break;
 					case "dirRIGHT":
 						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnRIGHT.getBackground()) {
+							r.keyPress(KeyEvent.VK_RIGHT);
 							Server.btnRIGHT.setBackground(Color.GREEN);
 						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							r.keyRelease(KeyEvent.VK_RIGHT);
 							Server.btnRIGHT.setBackground(null);
 						}
 						break;
