@@ -1,13 +1,18 @@
 import java.awt.EventQueue;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Client {
 
 	// DIREZIONI
-	protected static boolean dirUP = false, dirDOWN = false, dirLEFT = false, dirRIGHT = false;
+	protected static Direction dirUP = new Direction("dirUP", false), dirDOWN = new Direction("dirDOWN", false),
+			dirLEFT = new Direction("dirLEFT", false), dirRIGHT = new Direction("dirRIGHT", false);
 
 	private JFrame frame;
 	private static JTextField jtext;
@@ -36,8 +41,11 @@ public class Client {
 
 	/**
 	 * Create the application.
+	 * 
+	 * @throws IOException
+	 * @throws UnknownHostException
 	 */
-	public Client() {
+	public Client() throws UnknownHostException, IOException {
 		initialize();
 		jtext.addKeyListener(new KeyListen());
 	}
@@ -52,6 +60,7 @@ public class Client {
 		frame.getContentPane().setLayout(null);
 
 		jtext = new JTextField();
+		jtext.setEditable(false);
 		jtext.setBounds(10, 11, 86, 20);
 		frame.getContentPane().add(jtext);
 		jtext.setColumns(10);

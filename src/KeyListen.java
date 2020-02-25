@@ -1,48 +1,60 @@
 import java.awt.Color;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.*;
+import java.net.*;
 
 public class KeyListen implements KeyListener {
+	static boolean connOpen = false;
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			// FRECCIA SU
 			Client.setJtext("UP");
-			if (Client.dirUP != true) {
-				Client.dirUP = true;
+			if (Client.dirUP.getDir() != true) {
+				Client.dirUP.setDir(true);
+
+				try {
+					sendUDP(Client.dirUP);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			// FRECCIA GIU
 			Client.setJtext("DOWN");
-			if (Client.dirDOWN != true) {
-				Client.dirDOWN = true;
+			if (Client.dirDOWN.getDir() != true) {
+				Client.dirDOWN.setDir(true);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			// FRECCIA SINISTRA
 			Client.setJtext("LEFT");
-			if (Client.dirLEFT != true) {
-				Client.dirLEFT = true;
+			if (Client.dirLEFT.getDir() != true) {
+				Client.dirLEFT.setDir(true);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			// FRECCIA DESTRA
 			Client.setJtext("RIGHT");
-			if (Client.dirRIGHT != true) {
-				Client.dirRIGHT = true;
+			if (Client.dirRIGHT.getDir() != true) {
+				Client.dirRIGHT.setDir(true);
 			}
 		}
 
-		if (Client.dirUP == true) {
+		if (Client.dirUP.getDir() == true) {
 			Client.btnUP.setBackground(Color.GREEN);
 		}
-		if (Client.dirDOWN == true) {
+		if (Client.dirDOWN.getDir() == true) {
 			Client.btnDOWN.setBackground(Color.GREEN);
 		}
-		if (Client.dirLEFT == true) {
+		if (Client.dirLEFT.getDir() == true) {
 			Client.btnLEFT.setBackground(Color.GREEN);
 		}
-		if (Client.dirRIGHT == true) {
+		if (Client.dirRIGHT.getDir() == true) {
 			Client.btnRIGHT.setBackground(Color.GREEN);
 		}
 	}
@@ -51,44 +63,70 @@ public class KeyListen implements KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			// FRECCIA SU
 			Client.setJtext("UP");
-			if (Client.dirUP != false) {
-				Client.dirUP = false;
+			if (Client.dirUP.getDir() != false) {
+				Client.dirUP.setDir(false);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			// FRECCIA GIU
 			Client.setJtext("DOWN");
-			if (Client.dirDOWN != false) {
-				Client.dirDOWN = false;
+			if (Client.dirDOWN.getDir() != false) {
+				Client.dirDOWN.setDir(false);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			// FRECCIA SINISTRA
 			Client.setJtext("LEFT");
-			if (Client.dirLEFT != false) {
-				Client.dirLEFT = false;
+			if (Client.dirLEFT.getDir() != false) {
+				Client.dirLEFT.setDir(false);
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			// FRECCIA DESTRA
 			Client.setJtext("RIGHT");
-			if (Client.dirRIGHT != false) {
-				Client.dirRIGHT = false;
+			if (Client.dirRIGHT.getDir() != false) {
+				Client.dirRIGHT.setDir(false);
 			}
 		}
 
-		if (Client.dirUP == false) {
+		if (Client.dirUP.getDir() == false) {
 			Client.btnUP.setBackground(null);
 		}
-		if (Client.dirDOWN == false) {
+		if (Client.dirDOWN.getDir() == false) {
 			Client.btnDOWN.setBackground(null);
 		}
-		if (Client.dirLEFT == false) {
+		if (Client.dirLEFT.getDir() == false) {
 			Client.btnLEFT.setBackground(null);
 		}
-		if (Client.dirRIGHT == false) {
+		if (Client.dirRIGHT.getDir() == false) {
 			Client.btnRIGHT.setBackground(null);
 		}
+	}
+
+	private static InetAddress addr;
+	private static BufferedReader stdIn;
+	private static byte[] msg = { 0 };
+
+	public static void sendUDP(Direction dir) throws UnknownHostException, IOException {
+		addr = InetAddress.getByName("localhost");
+		stdIn = new BufferedReader(new InputStreamReader(System.in));
+
+		msg = dir.toString().getBytes();
+
+		// Creazione della Socket per l'invio del Datagramma con porta Client dinamica
+		DatagramSocket s = new DatagramSocket();
+
+		// Creazione del pacchetto da inviare al Server
+		DatagramPacket hi = new DatagramPacket(msg, msg.length, addr, 7777);
+		hi.setData(msg);
+		hi.setLength(msg.length);
+
+		// Invio
+		s.send(hi);
+	}
+
+	public static void closeConnectionUDP() throws UnknownHostException, IOException {
+
 	}
 
 	public void keyTyped(KeyEvent e) {
