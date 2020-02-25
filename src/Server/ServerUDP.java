@@ -1,5 +1,6 @@
 package Server;
 
+import java.awt.Color;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -36,7 +37,32 @@ public class ServerUDP extends Thread {
 
 					switch (parts[0]) {
 					case "dirUP":
-						System.err.println("dirUP");
+						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnUP.getBackground()) {
+							Server.btnUP.setBackground(Color.GREEN);
+						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							Server.btnUP.setBackground(null);
+						}
+						break;
+					case "dirDOWN":
+						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnDOWN.getBackground()) {
+							Server.btnDOWN.setBackground(Color.GREEN);
+						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							Server.btnDOWN.setBackground(null);
+						}
+						break;
+					case "dirLEFT":
+						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnLEFT.getBackground()) {
+							Server.btnLEFT.setBackground(Color.GREEN);
+						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							Server.btnLEFT.setBackground(null);
+						}
+						break;
+					case "dirRIGHT":
+						if (Boolean.parseBoolean(parts[1]) == true && Color.GREEN != Server.btnRIGHT.getBackground()) {
+							Server.btnRIGHT.setBackground(Color.GREEN);
+						} else if (Boolean.parseBoolean(parts[1]) == false) {
+							Server.btnRIGHT.setBackground(null);
+						}
 						break;
 					}
 				}

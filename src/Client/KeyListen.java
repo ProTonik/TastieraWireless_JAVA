@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.*;
 
 public class KeyListen implements KeyListener {
-	static boolean connOpen = false;
 
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -29,6 +28,13 @@ public class KeyListen implements KeyListener {
 			Client.setJtext("DOWN");
 			if (Client.dirDOWN.getDir() != true) {
 				Client.dirDOWN.setDir(true);
+
+				try {
+					sendUDP(Client.dirDOWN);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -36,6 +42,13 @@ public class KeyListen implements KeyListener {
 			Client.setJtext("LEFT");
 			if (Client.dirLEFT.getDir() != true) {
 				Client.dirLEFT.setDir(true);
+
+				try {
+					sendUDP(Client.dirLEFT);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -43,6 +56,13 @@ public class KeyListen implements KeyListener {
 			Client.setJtext("RIGHT");
 			if (Client.dirRIGHT.getDir() != true) {
 				Client.dirRIGHT.setDir(true);
+
+				try {
+					sendUDP(Client.dirRIGHT);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		}
 
@@ -67,12 +87,25 @@ public class KeyListen implements KeyListener {
 			if (Client.dirUP.getDir() != false) {
 				Client.dirUP.setDir(false);
 			}
+			try {
+				sendUDP(Client.dirUP);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 			// FRECCIA GIU
 			Client.setJtext("DOWN");
 			if (Client.dirDOWN.getDir() != false) {
 				Client.dirDOWN.setDir(false);
+			}
+
+			try {
+				sendUDP(Client.dirDOWN);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -81,12 +114,26 @@ public class KeyListen implements KeyListener {
 			if (Client.dirLEFT.getDir() != false) {
 				Client.dirLEFT.setDir(false);
 			}
+
+			try {
+				sendUDP(Client.dirLEFT);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			// FRECCIA DESTRA
 			Client.setJtext("RIGHT");
 			if (Client.dirRIGHT.getDir() != false) {
 				Client.dirRIGHT.setDir(false);
+			}
+
+			try {
+				sendUDP(Client.dirRIGHT);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 
@@ -105,12 +152,10 @@ public class KeyListen implements KeyListener {
 	}
 
 	private static InetAddress addr;
-	private static BufferedReader stdIn;
 	private static byte[] msg = { 0 };
 
 	public static void sendUDP(DirectionC dir) throws UnknownHostException, IOException {
 		addr = InetAddress.getByName("localhost");
-		stdIn = new BufferedReader(new InputStreamReader(System.in));
 
 		msg = dir.toString().getBytes();
 
