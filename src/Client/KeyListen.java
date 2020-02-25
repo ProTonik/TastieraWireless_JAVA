@@ -1,7 +1,7 @@
+package Client;
+
 import java.awt.Color;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.*;
 import java.net.*;
 
@@ -21,6 +21,7 @@ public class KeyListen implements KeyListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+
 			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -107,7 +108,7 @@ public class KeyListen implements KeyListener {
 	private static BufferedReader stdIn;
 	private static byte[] msg = { 0 };
 
-	public static void sendUDP(Direction dir) throws UnknownHostException, IOException {
+	public static void sendUDP(DirectionC dir) throws UnknownHostException, IOException {
 		addr = InetAddress.getByName("localhost");
 		stdIn = new BufferedReader(new InputStreamReader(System.in));
 
@@ -123,10 +124,6 @@ public class KeyListen implements KeyListener {
 
 		// Invio
 		s.send(hi);
-	}
-
-	public static void closeConnectionUDP() throws UnknownHostException, IOException {
-
 	}
 
 	public void keyTyped(KeyEvent e) {

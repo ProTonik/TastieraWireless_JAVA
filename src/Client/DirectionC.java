@@ -1,6 +1,12 @@
-public class Direction {
+package Client;
+
+public class DirectionC {
 	public String getName() {
 		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public boolean getDir() {
@@ -12,13 +18,13 @@ public class Direction {
 	}
 
 	public String toString() {
-		return this.name + "." + this.dir;
+		return this.name + "," + this.dir;
 	}
 
 	private String name;
 	private boolean dir;
 
-	public Direction(String name, boolean dir) {
+	public DirectionC(String name, boolean dir) {
 		this.name = name;
 		this.dir = dir;
 	}
